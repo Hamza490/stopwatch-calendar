@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+    <div class="container">
+        <div class="watch">
+            <div class="outer-clock">
+                <div class="inner-clock">
+                    <span class="time min"></span>
+                    <span class="time sec"></span>
+                    <span class="time msec"></span>
+                </div>
+            </div>
+            <div class="button-wrapper" id="action">
+                <button type="submit" class="btn display-none" id="stop">Stop</button>
+                <button type="submit" class="btn" id="start">Start</button>
+                <button type="submit" class="btn display-none" id="record">Rec.</button>
+            </div>
+        </div>
+    </div>
+
+   <script>
+    const stopButton = document.getElementById("stop");
+    const startButton = document.getElementById("start");
+    const recordButton = document.getElementById("record");
+    const second = document.getElementByClassName("sec");
+
+
+    let isStart = false;
+    let secCounter = 0;
+    let sec;
+
+    const toggleButton =()=>{
+        recordButton.classList.remove("display-none")
+        stopButton.classList.remove("display-none")
+    }
+    const start = ()=>{
+        if (!isStart){
+            startButton.innerHTML = 'Pause';
+            sec = setInterval(() => {
+                  second.innerHTML = secCounter++;
+                }, 1000);
+            isStart = true;
+        }
+        else{
+            startButton.innerHTML = 'Start';
+            clearInterval(sec);
+            isStart = false;
+        }
+        toggleButton();
+    }
+
+    const record =()=>{
+        
+        stopButton.classList.add("display-none");
+        recordButton.classList.add("display-none")
+    }
+
+    startButton.addEventListener("click", start);
+    recordButton.addEventListener("click", record);
+
+    </script>
+</body>
+</html>
